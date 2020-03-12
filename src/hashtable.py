@@ -14,7 +14,17 @@ class HashTable:
     '''
     def __init__(self, capacity):
         self.capacity = capacity  # Number of buckets in the hash table
-        self.storage = [None] * capacity
+        self.storage = [None] * capacity # our capacity is * by the storage because as capacity grows storage does as well
+        self.count = 0 # for every bucket we iterate through count goes up by one
+
+
+# *** Understand ***
+# the _hash wants me to return a hash value of the object if it has one 
+# hash are are integers 
+# they are used to quickly compare dictionary keys
+
+# *** Plan ***
+# I don't think I need to do anything because key is already being hashed via the hash() method
 
 
     def _hash(self, key):
@@ -32,15 +42,31 @@ class HashTable:
 
         OPTIONAL STRETCH: Research and implement DJB2
         '''
-        pass
+        
+        hash_value = self.storage
 
+        for char in key:
+            hash_value = hash_value + (hash_value << 5) + char
+
+            return hash_value
+
+# *** Understand ***
+# take a key and return the the number of the index 
+# do this within the storage and make sure that storage does not go over the capacity of the hash 
+
+# *** Plan ***
+# we want to check if the storage is > then the capacity 
+# if it's ture then we want to check if index is in key
+# if so then we want to return the key being hashed devided by the capacity
 
     def _hash_mod(self, key):
         '''
         Take an arbitrary key and return a valid integer index
         within the storage capacity of the hash table.
         '''
-        return self._hash(key) % self.capacity
+
+        if self.storage > self.capacity: # checking to see if we have sapce
+                return self._hash(key) % self.capacity # then we return the key hashed and devided by the capacity
 
 
     def insert(self, key, value):
