@@ -42,32 +42,25 @@ class HashTable:
 
         OPTIONAL STRETCH: Research and implement DJB2
         '''
-        
-        hash_value = self.storage
+        pass
 
-        for char in key:
-            hash_value = hash_value + (hash_value << 5) + char
-
-            return hash_value
-
-# *** Understand ***
-# take a key and return the the number of the index 
-# do this within the storage and make sure that storage does not go over the capacity of the hash 
-
-# *** Plan ***
-# we want to check if the storage is > then the capacity 
-# if it's ture then we want to check if index is in key
-# if so then we want to return the key being hashed devided by the capacity
 
     def _hash_mod(self, key):
         '''
         Take an arbitrary key and return a valid integer index
         within the storage capacity of the hash table.
         '''
+        return self._hash(key) % self.capacity
 
-        if self.storage > self.capacity: # checking to see if we have sapce
-                return self._hash(key) % self.capacity # then we return the key hashed and devided by the capacity
 
+# *** Understand ***
+# 
+
+# *** Plan ***
+# make a empyt list 
+# find the key pair value  
+# hash the kay
+# insert the hased key into our "empty_list"
 
     def insert(self, key, value):
         '''
@@ -80,8 +73,14 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        
+        hashed_key = self._hash_mod(key)
 
+        if key in self.storage:
+            print("Oh no please don't do this")
+        elif key not in self.storage:
+            self.storage[hashed_key] = LinkedPair(key, value)
+            
 
 
     def remove(self, key):
