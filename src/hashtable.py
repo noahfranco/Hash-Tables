@@ -14,7 +14,17 @@ class HashTable:
     '''
     def __init__(self, capacity):
         self.capacity = capacity  # Number of buckets in the hash table
-        self.storage = [None] * capacity
+        self.storage = [None] * capacity # our capacity is * by the storage because as capacity grows storage does as well
+        self.count = 0 # for every bucket we iterate through count goes up by one
+
+
+# *** Understand ***
+# the _hash wants me to return a hash value of the object if it has one 
+# hash are are integers 
+# they are used to quickly compare dictionary keys
+
+# *** Plan ***
+# I don't think I need to do anything because key is already being hashed via the hash() method
 
 
     def _hash(self, key):
@@ -43,6 +53,15 @@ class HashTable:
         return self._hash(key) % self.capacity
 
 
+# *** Understand ***
+# 
+
+# *** Plan ***
+# make a empyt list 
+# find the key pair value  
+# hash the kay
+# insert the hased key into our "empty_list"
+
     def insert(self, key, value):
         '''
         Store the value with the given key.
@@ -54,8 +73,14 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        
+        hashed_key = self._hash_mod(key)
 
+        if key in self.storage:
+            print("Oh no please don't do this")
+        elif key not in self.storage:
+            self.storage[hashed_key] = LinkedPair(key, value)
+            
 
 
     def remove(self, key):
